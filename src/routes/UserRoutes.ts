@@ -6,5 +6,6 @@ const userRoutes = Router()
 userRoutes.get('/', new UserController().get)
 userRoutes.post('/', new UserController().create)
 userRoutes.put('/', new UserController().update)
+userRoutes.delete('/', new UserController().delete)
 
 export default userRoutes
