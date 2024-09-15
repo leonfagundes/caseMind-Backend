@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { TaskService } from "../services/TaskService";
 
 export class TaskController {
-  async get(res: Response) {
+  async get(req: Request, res: Response) {
     try {
       const tasks = await TaskService.getAll();
       res.status(200).json(tasks);

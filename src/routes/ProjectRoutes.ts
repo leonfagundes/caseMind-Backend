@@ -5,7 +5,7 @@ const projectRoutes = Router()
 
 projectRoutes.get('/', new ProjectController().get)
 projectRoutes.post('/', new ProjectController().create)
-projectRoutes.put('/', new ProjectController().update)
-projectRoutes.delete('/', new ProjectController().delete)
+projectRoutes.put('/:id', new ProjectController().update)
+projectRoutes.delete('/:id', new ProjectController().delete)
 
 export default projectRoutes

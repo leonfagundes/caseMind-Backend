@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { UserService } from "../services/UserService";
 
 export class UserController {
-    async get(res: Response) {
+    async get(req: Request, res: Response) {
         try {
             const users = await UserService.getAll();
             res.status(200).json(users);
@@ -12,9 +12,40 @@ export class UserController {
         }
     }
 
-     
+    async getById(req: Request, res: Response) {
+        const { id } = req.params;  // Obtém o ID da URL
+
+        try {
+            const user = await UserService.getById(id);
+            if (!user) {
+                return res.status(404).json({ message: "User not found" });
+            }
+            res.status(200).json(user);
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Internal Server Error" });
+        }
+    }
+
+    async create(req: Request, res: Response) {
+        const { name, email, password } = req.body;
+        const photo = req.file?.buffer; 
+
+        try {
+            if (!name || !email || !password) {
+                return res.status(400).json({ message: "Please provide name, email, and password." });
+            }
+
+            const newUser = await UserService.create(name, email, password, photo);
+            res.status(201).json(newUser);
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Internal Server Error" });
+        }
+    }
+
     async update(req: Request, res: Response) {
-        const { id } = req.params;
+        const { id } = req.params;  // ID na URL agora
         const { name, email, password } = req.body;
         const photo = req.file?.buffer;
 
@@ -31,14 +62,14 @@ export class UserController {
     }
 
     async delete(req: Request, res: Response) {
-        const { id } = req.params;
+        const { id } = req.params;  // ID na URL agora
 
         try {
             const result = await UserService.delete(id);
             if (!result) {
                 return res.status(404).json({ message: "User not found" });
             }
-            res.status(204).send(); // No content
+            res.status(204).json({message: 'Usuáio deletado com sucesso!'}); 
         } catch (error) {
             console.log(error);
             res.status(500).json({ message: "Internal Server Error" });

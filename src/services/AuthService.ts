@@ -1,4 +1,4 @@
-import { userRepository } from "../services/UserService";
+import { userRepository } from './UserService';
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 

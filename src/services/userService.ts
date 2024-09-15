@@ -6,7 +6,11 @@ export const userRepository = AppDataSource.getRepository(User);
 
 export class UserService {
     static async getAll() {
-        return await userRepository.find();
+        return await userRepository.find({ relations: ['createdTasks'] });
+      }
+
+    static async getById(id: string) {
+        return await userRepository.findOneBy({ id: Number(id) });
     }
 
     static async create(name: string, email: string, password: string, photo?: Buffer) {

@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 import { ProjectService } from "../services/ProjectService";
 
 export class ProjectController {
-  static async get(res: Response) {
+
+  // Corrigindo o método para receber req e res
+  async get(req: Request, res: Response) {
     try {
       const projects = await ProjectService.getAll();
       res.status(200).json(projects);

@@ -5,7 +5,7 @@ const projectRepository = AppDataSource.getRepository(Project);
 
 export class ProjectService {
   static async getAll() {
-    return await projectRepository.find();
+    return await projectRepository.find({ relations: ['tasks'] });
   }
 
   static async create(name: string, description: string, deliveryDate: Date) {

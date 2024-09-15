@@ -19,7 +19,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
             return res.status(401).json({ message: "Invalid token" });
         }
 
-        req.user = decoded;
+        req.user = decoded;  // Agora o TypeScript reconhece a propriedade 'user'
         next();
     } catch (error) {
         return res.status(401).json({ message: "Unauthorized" });
