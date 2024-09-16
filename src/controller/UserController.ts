@@ -28,8 +28,14 @@ export class UserController {
     }
 
     async create(req: Request, res: Response) {
+
         const { name, email, password } = req.body;
         const photo = req.file?.buffer; 
+
+        console.log('Nome:', name);
+        console.log('Email:', email);
+        console.log('Senha:', password ? '*****' : 'Nenhuma senha');
+        console.log('Foto:', photo ? 'Foto enviada' : 'Nenhuma foto enviada');
 
         try {
             if (!name || !email || !password) {

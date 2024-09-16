@@ -25,7 +25,7 @@ export class UserService {
         });
 
         return await userRepository.save(user);
-    }
+    }   
 
     static async update(id: string, { name, email, password, photo }: Partial<User>) {
         const user = await userRepository.findOneBy({ id: Number(id) });
